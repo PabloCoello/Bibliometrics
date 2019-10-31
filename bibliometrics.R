@@ -16,18 +16,25 @@ ref_summary = function(x){
   sources = length(unique(x$Revista))
   period = paste(min(x$Año, na.rm = TRUE), '-', max(x$Año))
   citations = mean(x$Citas, na.rm = TRUE)
+  
   authors = get_author_list(Bibliografia)
   num_authors = length(unique(unlist(authors)))
+  appear_authors = length(unlist(authors))
+  
+  year = x %>% 
+    group_by(Año) %>% 
+    summarize(count = n())
   
   print(paste('Number of articles:', articles))
   print(paste('Number of sources:', sources))
   print(paste('Time period:', period))
   print(paste('Average citations:', citations))
   print(paste('Number authors:', num_authors))
-  return(list(articles, sources, period, citations))
+  print(paste('Authors appearances:', appear_authors))
+
+  return(list(articles, sources, period, citations, num_authors,
+              appear_authors, year))
 }
 
 sum= ref_summary(Bibliografia)
-authors = get_author_list(Bibliografia)
-
-length(unique(unlist(authors)))
+plot(sum[[7]][which(sum[[7]]>0),])
