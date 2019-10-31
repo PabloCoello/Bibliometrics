@@ -36,5 +36,19 @@ ref_summary = function(x){
               appear_authors, year))
 }
 
+get_most_citated_publications = function(x, n){
+  cit = sort(x$Citas, decreasing = TRUE)
+  cit = cit[c(1:n)]
+  ref = x[which(x$Citas %in% cit),]
+  print(ref[,2])
+  return(ref)
+}
+
 sum= ref_summary(Bibliografia)
+authors = get_author_list(Bibliografia)
+
+#Plot publicaciones por año
 plot(sum[[7]][which(sum[[7]]>0),])
+
+get_most_citated_publications(Bibliografia, n=10)
+
