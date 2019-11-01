@@ -8,8 +8,16 @@ Bibliografia <- read_excel("Bibliografia.xlsx")
 get_author_list = function(x){
   authors = strsplit(Bibliografia$Autores, '.,', fixed = TRUE)
   authors = lapply(authors, str_remove_all, pattern = "[& ]")
+  for (i in 1:length(authors)){
+    for (j in 1:length(authors[[i]])){
+      if (substring(authors[[i]][j], nchar(authors[[i]][j])) != '.'){
+        authors[[i]][j] = paste(authors[[i]][j], '.', sep = '')
+      }else{}
+    }
+  }
   return(authors)
 }
+
 
 ref_summary = function(x){
   articles = nrow(x)
@@ -44,11 +52,37 @@ get_most_citated_publications = function(x, n){
   return(ref)
 }
 
+get_most_citated_authors = function(x, n){
+  author = unique(unlist(get_author_list(x)))
+  author_citations = array(length(author))
+  for (i in 1:length(author)){
+    pos = array(nrow(x))
+    for (j in 1:nrow(x)){
+      if (any(author[i] %in% authors[[j]])){
+        pos[j] = j
+      }else{
+        pos[j] = NA
+      }
+    }
+    pos = pos[!is.na(pos)]
+    author_citations[i] = sum(x$Citas[pos])
+  }
+  df = cbind.data.frame(author, author_citations)
+  print(df[1:n,])
+  return(df)
+}
+
 sum= ref_summary(Bibliografia)
 authors = get_author_list(Bibliografia)
 
 #Plot publicaciones por año
 plot(sum[[7]][which(sum[[7]]>0),])
 
-get_most_citated_publications(Bibliografia, n=10)
+cit = get_most_citated_publications(Bibliografia, n=10)
 
+
+
+
+pos
+author_citations
+author[193]
