@@ -68,6 +68,7 @@ get_most_citated_authors = function(x, n){
     author_citations[i] = sum(x$Citas[pos])
   }
   df = cbind.data.frame(author, author_citations)
+  df = arrange(df, desc(author_citations))
   print(df[1:n,])
   return(df)
 }
@@ -79,10 +80,4 @@ authors = get_author_list(Bibliografia)
 plot(sum[[7]][which(sum[[7]]>0),])
 
 cit = get_most_citated_publications(Bibliografia, n=10)
-
-
-
-
-pos
-author_citations
-author[193]
+auth = get_most_citated_authors(Bibliografia, n=10)
