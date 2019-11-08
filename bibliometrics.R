@@ -79,5 +79,5 @@ authors = get_author_list(Bibliografia)
 #Plot publicaciones por año
 plot(sum[[7]][which(sum[[7]]>0),])
 
-cit = get_most_citated_publications(Bibliografia, n=10)
+  cit = get_most_citated_publications(Bibliografia, n=10)
 auth = get_most_citated_authors(Bibliografia, n=10)
