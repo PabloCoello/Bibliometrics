@@ -1,8 +1,19 @@
 library(readxl)
 library(tidyr)
 library(stringr)
+library(dplyr)
 
-setwd("~/GitHub/data")
+lib <- c("readxl", 'tidyr', "stringr")
+lib_call = function(lib){
+  for (i in 1:length(lib)){
+    l <- lib[i]
+    if(!require(l)){install.packages(l)};library(l)
+}}
+lib_call(lib)
+
+
+
+setwd("/mnt/c/Users/epiph/OneDrive/Documentos/GitHub/data")
 Bibliografia <- read_excel("Bibliografia.xlsx")
 
 get_author_list = function(x){
@@ -77,7 +88,8 @@ sum= ref_summary(Bibliografia)
 authors = get_author_list(Bibliografia)
 
 #Plot publicaciones por año
+x11()
 plot(sum[[7]][which(sum[[7]]>0),])
 
-  cit = get_most_citated_publications(Bibliografia, n=10)
+cit = get_most_citated_publications(Bibliografia, n=10)
 auth = get_most_citated_authors(Bibliografia, n=10)
