@@ -10,9 +10,10 @@ if(!require(topicmodels)){install.packages("topicmodels");library(topicmodels)}
 if(!require(devtools)){install.packages("devtools");library(devtools)}
 if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)} # https://github.com/akshaynagpal/RgScholar
 if(!require(scholar)){install.packages("scholar");library(scholar)} # https://www.rdocumentation.org/packages/scholar/versions/0.1.7
-if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://github.com/muschellij2/rscopus
+if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://github.com/muschellij2/rscopus // https://www.rdocumentation.org/packages/rscopus/versions/0.6.6
 
-query <- google_Scholar("heart rate")
+#RgScholar
+query <- google_Scholar("heart rate") # HTTP error 429 -> too many requests
 
 # rscopus (desde la USC)
 options("elsevier_api_key" = '688f324bf0bbe4273de2fd6ef18593b3')
