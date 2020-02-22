@@ -9,6 +9,11 @@ require(lubridate)
 require(topicmodels) #for topic modeling
 library(devtools)
 install_github('akshaynagpal/rgscholar')
+library(RgScholar)
+
+query <- google_Scholar("heart rate")
+
+
 
 setwd("~/GitHub/data/bibliometrics")
 
