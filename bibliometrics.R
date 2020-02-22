@@ -2,15 +2,11 @@ library(readxl)
 library(tidyr)
 library(stringr)
 library(dplyr)
-
-lib <- c("readxl", 'tidyr', "stringr")
-lib_call = function(lib){
-  for (i in 1:length(lib)){
-    l <- lib[i]
-    if(!require(l)){install.packages(l)};library(l)
-}}
-lib_call(lib)
-
+library(bibliometrix) #the library for bibliometrics
+library(quanteda) #a library for quantitative text analysis
+require(ggplot2) #visualization
+require(lubridate) 
+require(topicmodels) #for topic modeling
 
 
 setwd("/mnt/c/Users/epiph/OneDrive/Documentos/GitHub/data")
@@ -90,6 +86,8 @@ authors = get_author_list(Bibliografia)
 #Plot publicaciones por año
 x11()
 plot(sum[[7]][which(sum[[7]]>0),])
+table = sum[[7]]
+table
 
 cit = get_most_citated_publications(Bibliografia, n=10)
 auth = get_most_citated_authors(Bibliografia, n=10)
