@@ -45,5 +45,18 @@ df <- scopus_search(query, api_key = NULL, count = 200,
   headers = NULL, wait_time = 0, ...)
 ```
 
+## Análisis descriptivo
+
+```{r}
+results <- biblioAnalysis(M, sep = ";")
+options(width=100)
+S <- summary(object = results, k = 10, pause = FALSE)
+```
+
+Plots descriptivos:
+```{r}
+plot(x = results, k = 10, pause = FALSE)
+```
+
 
 
