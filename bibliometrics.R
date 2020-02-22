@@ -12,21 +12,23 @@ if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgSchol
 if(!require(scholar)){install.packages("scholar");library(scholar)} # https://www.rdocumentation.org/packages/scholar/versions/0.1.7
 if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://github.com/muschellij2/rscopus // https://www.rdocumentation.org/packages/rscopus/versions/0.6.6
 
-#RgScholar
+
+# La idea es empezar cargando una primera revisión inicial hecha a mano con el código siguiente:
+
+setwd("~/GitHub/data/bibliometrics")
+
+bib <- readFiles("EPyRIS.bib")
+bib <- convert2df(bib, dbsource = "wos", format = "bibtex")
+
+# Con scholar se busca información de los Autores
+
+#RgScholar. Se usa para buscar términos clave de la revisión original
 query <- google_Scholar("heart rate") # HTTP error 429 -> too many requests
 
 # rscopus (desde la USC)
 options("elsevier_api_key" = '688f324bf0bbe4273de2fd6ef18593b3')
 res = author_df(last_name = "Muschelli", first_name = "John", verbose = FALSE, general = FALSE)
 names(res)
-
-
-
-
-setwd("~/GitHub/data/bibliometrics")
-
-bib <- readFiles("EPyRIS.bib")
-bib <- convert2df(bib, dbsource = "wos", format = "bibtex")
 
 
 
