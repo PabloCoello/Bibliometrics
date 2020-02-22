@@ -2,7 +2,7 @@ if(!require(readxl)){install.packages("readxl");library(readxl)}
 if(!require(dplyr)){install.packages("dplyr");library(dplyr)}
 if(!require(tidyr)){install.packages("tidyr");library(tidyr)}
 if(!require(stringr)){install.packages("stringr");library(stringr)}
-if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)}
+if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)} # https://github.com/massimoaria/bibliometrix
 if(!require(quanteda)){install.packages("quanteda");library(quanteda)}
 if(!require(ggplot2)){install.packages("ggplot2");library(ggplot2)}
 if(!require(lubridate)){install.packages("lubridate");library(lubridate)}
@@ -12,7 +12,7 @@ if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgSchol
 if(!require(scholar)){install.packages("scholar");library(scholar)} # https://www.rdocumentation.org/packages/scholar/versions/0.1.7
 if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://github.com/muschellij2/rscopus // https://www.rdocumentation.org/packages/rscopus/versions/0.6.6
 
-
+## Revisar http://htmlpreview.github.io/?https://github.com/massimoaria/bibliometrix/master/vignettes/bibliometrix-vignette.html
 # La idea es empezar cargando una primera revisión inicial hecha a mano con el código siguiente:
 
 setwd("~/GitHub/data/bibliometrics")
