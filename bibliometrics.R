@@ -1,15 +1,14 @@
-library(readxl)
-library(tidyr)
-library(stringr)
-library(dplyr)
-library(bibliometrix) #the library for bibliometrics
-library(quanteda) #a library for quantitative text analysis
-require(ggplot2) #visualization
-require(lubridate) 
-require(topicmodels) #for topic modeling
-library(devtools)
-install_github('akshaynagpal/rgscholar')
-library(RgScholar)
+if(!require(readxl)){install.packages("readxl");library(readxl)}
+if(!require(dplyr)){install.packages("dplyr");library(dplyr)}
+if(!require(tidyr)){install.packages("tidyr");library(tidyr)}
+if(!require(stringr)){install.packages("stringr");library(stringr)}
+if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)}
+if(!require(quanteda)){install.packages("quanteda");library(quanteda)}
+if(!require(ggplot2)){install.packages("ggplot2");library(ggplot2)}
+if(!require(lubridate)){install.packages("lubridate");library(lubridate)}
+if(!require(topicmodels)){install.packages("topicmodels");library(topicmodels)}
+if(!require(devtools)){install.packages("devtools");library(devtools)}
+if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)}
 
 query <- google_Scholar("heart rate")
 
