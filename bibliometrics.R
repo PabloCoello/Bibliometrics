@@ -8,9 +8,17 @@ if(!require(ggplot2)){install.packages("ggplot2");library(ggplot2)}
 if(!require(lubridate)){install.packages("lubridate");library(lubridate)}
 if(!require(topicmodels)){install.packages("topicmodels");library(topicmodels)}
 if(!require(devtools)){install.packages("devtools");library(devtools)}
-if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)}
+if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)} # https://github.com/akshaynagpal/RgScholar
+if(!require(scholar)){install.packages("scholar");library(scholar)} # https://www.rdocumentation.org/packages/scholar/versions/0.1.7
+if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://github.com/muschellij2/rscopus
 
 query <- google_Scholar("heart rate")
+
+# rscopus (desde la USC)
+options("elsevier_api_key" = '688f324bf0bbe4273de2fd6ef18593b3')
+res = author_df(last_name = "Muschelli", first_name = "John", verbose = FALSE, general = FALSE)
+names(res)
+
 
 
 
