@@ -7,10 +7,23 @@ library(quanteda) #a library for quantitative text analysis
 require(ggplot2) #visualization
 require(lubridate) 
 require(topicmodels) #for topic modeling
+library(devtools)
+install_github('akshaynagpal/rgscholar')
+
+setwd("~/GitHub/data/bibliometrics")
+
+bib <- readFiles("EPyRIS.bib")
+bib <- convert2df(bib, dbsource = "wos", format = "bibtex")
 
 
-setwd("/mnt/c/Users/epiph/OneDrive/Documentos/GitHub/data")
-Bibliografia <- read_excel("Bibliografia.xlsx")
+
+results <- biblioAnalysis(bib, sep = ";")
+S<- summary(object=results,k=20,pause=FALSE)
+
+plot(x = results, k = 10, pause = FALSE)
+
+NetMatrix <- biblioNetwork(bib, analysis = "coupling", network = "authors", sep = ";")
+net=networkPlot(NetMatrix, normalize = "salton", weighted=T, n = 20, labelsize=0.5,curved=TRUE,Title = "A Co-citation Network of Authors", type = "kamada", size=TRUE,remove.multiple=TRUE)
 
 get_author_list = function(x){
   authors = strsplit(Bibliografia$Autores, '.,', fixed = TRUE)
