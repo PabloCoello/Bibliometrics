@@ -4,3 +4,41 @@ author: "Pablo Coello Pulido"
 date: "22/2/2020"
 output: html_document
 ---
+# Análisis bibliométrico de palabras clave seleccionadas
+
+```{r Load librarys, echo=FALSE, comment='', message=FALSE, warning=FALSE}
+if(!require(readxl)){install.packages("readxl");library(readxl)}
+if(!require(dplyr)){install.packages("dplyr");library(dplyr)}
+if(!require(tidyr)){install.packages("tidyr");library(tidyr)}
+if(!require(stringr)){install.packages("stringr");library(stringr)}
+if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)} #https://github.com/massimoaria/bibliometrix
+if(!require(quanteda)){install.packages("quanteda");library(quanteda)}
+if(!require(ggplot2)){install.packages("ggplot2");library(ggplot2)}
+if(!require(lubridate)){install.packages("lubridate");library(lubridate)}
+if(!require(topicmodels)){install.packages("topicmodels");library(topicmodels)}
+if(!require(devtools)){install.packages("devtools");library(devtools)}
+if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)} #https://github.com/akshaynagpal/RgScholar
+if(!require(scholar)){install.packages("scholar");library(scholar)} #https://www.rdocumentation.org/packages/scholar/versions/0.1.7
+if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://github.com/muschellij2/rscopus #// https://www.rdocumentation.org/packages/rscopus/versions/0.6.6
+```
+
+```{r Scopus query, eval=FALSE, include=FALSE}
+# Doc en https://dev.elsevier.com/documentation/FullTextEntilementAPI.wadl
+df <- generic_elsevier_api(query = NULL, type = c("search", "article",
+  "entitlement", "recommendation", "object", "fragment", "abstract",
+  "affiliation", "embase", "author", "serial", "nonserial", "subject",
+  "holdings", "citation-count", "citations", "metadata", "ev",
+  "ev_records", "analytics"), search_type = c("affiliation", "author",
+  "scopus", "scidir", "scidir-object", "sciencedirect", "plumx"),
+  api_key = NULL, headers = NULL, content_type = c("content",
+  "feedback"), root_http = "https://api.elsevier.com", http_end = NULL,
+  verbose = TRUE, api_key_error = TRUE, ...)
+df <- scopus_search(query, api_key = NULL, count = 200,
+  view = c("STANDARD", "COMPLETE"), start = 0, verbose = TRUE,
+  max_count = 20000,
+  http = "https://api.elsevier.com/content/search/scopus",
+  headers = NULL, wait_time = 0, ...)
+```
+
+
+
