@@ -40,6 +40,9 @@ plot(x = results, k = 10, pause = FALSE)
 NetMatrix <- biblioNetwork(bib, analysis = "coupling", network = "authors", sep = ";")
 net=networkPlot(NetMatrix, normalize = "salton", weighted=T, n = 20, labelsize=0.5,curved=TRUE,Title = "A Co-citation Network of Authors", type = "kamada", size=TRUE,remove.multiple=TRUE)
 
+
+
+# Métodos para plantilla:
 get_author_list = function(x){
   authors = strsplit(Bibliografia$Autores, '.,', fixed = TRUE)
   authors = lapply(authors, str_remove_all, pattern = "[& ]")
