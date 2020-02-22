@@ -1,0 +1,6 @@
+---
+title: "Bibliometric Analysis"
+author: "Pablo Coello Pulido"
+date: "22/2/2020"
+output: html_document
+---
