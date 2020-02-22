@@ -11,13 +11,15 @@ if(!require(readxl)){install.packages("readxl");library(readxl)}
 if(!require(dplyr)){install.packages("dplyr");library(dplyr)}
 if(!require(tidyr)){install.packages("tidyr");library(tidyr)}
 if(!require(stringr)){install.packages("stringr");library(stringr)}
-if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)} #https://github.com/massimoaria/bibliometrix
+if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)}
+if(!require(xml2)){install.packages("xml2", dependencies=TRUE, INSTALL_opts = c('--no-lock'));library(xml2)}
+#https://github.com/massimoaria/bibliometrix
 if(!require(quanteda)){install.packages("quanteda");library(quanteda)}
 if(!require(ggplot2)){install.packages("ggplot2");library(ggplot2)}
 if(!require(lubridate)){install.packages("lubridate");library(lubridate)}
-if(!require(topicmodels)){install.packages("topicmodels");library(topicmodels)}
-if(!require(devtools)){install.packages("devtools");library(devtools)}
-if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)} #https://github.com/akshaynagpal/RgScholar
+#if(!require(topicmodels)){install.packages("topicmodels");library(topicmodels)}
+#if(!require(devtools)){install.packages("devtools", dependencies=TRUE, INSTALL_opts = c('--no-lock'));library(devtools)}
+#if(!require(RgScholar)){install_github('akshaynagpal/rgscholar');library(RgScholar)} #https://github.com/akshaynagpal/RgScholar
 if(!require(scholar)){install.packages("scholar");library(scholar)} #https://www.rdocumentation.org/packages/scholar/versions/0.1.7
 if(!require(rscopus)){install.packages("rscopus");library(rscopus)} 
 #https://github.com/muschellij2/rscopus 
@@ -47,14 +49,14 @@ df <- scopus_search(query, api_key = NULL, count = 200,
 
 ## Análisis descriptivo
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 results <- biblioAnalysis(M, sep = ";")
 options(width=100)
 S <- summary(object = results, k = 10, pause = FALSE)
 ```
 
 Plots descriptivos:
-```{r}
+```{r eval=FALSE, include=FALSE}
 plot(x = results, k = 10, pause = FALSE)
 ```
 
