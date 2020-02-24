@@ -34,13 +34,62 @@ M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
 
 ## Análisis descriptivo
 
-```{r echo=TRUE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 results <- biblioAnalysis(M, sep = ";")
 options(width=100)
+S <- summary(object = results, k = 10, pause = FALSE)
+
 knitr::kable(
-  S <- summary(object = results, k = 10, pause = FALSE)
+  S[1]
 )
 ```
+```{r}
+knitr::kable(
+  S[2]
+)
+```
+
+```{r}
+knitr::kable(
+  S[3]
+)
+```
+
+
+```{r}
+knitr::kable(
+  S[5]
+)
+```
+
+```{r}
+knitr::kable(
+  S[6]
+)
+```
+
+```{r}
+knitr::kable(
+  S[7]
+)
+```
+```{r}
+knitr::kable(
+  S[8]
+)
+```
+
+```{r}
+knitr::kable(
+  S[9]
+)
+```
+```{r}
+knitr::kable(
+  S[10]
+)
+```
+
 
 
 ## Temporal evolution:
