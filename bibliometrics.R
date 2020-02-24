@@ -18,8 +18,8 @@ if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://gi
 setwd("~/GitHub/data/bibliometrics")
 
 
-bib <- readFiles("scopus.bib")
-bib <- convert2df(bib, dbsource = "scopus", format = "bibtex")
+bib <- readFiles("scopus.csv")
+bib <- convert2df(bib, dbsource = "isi", format = "csv")
 
 
 results <- biblioAnalysis(bib, sep = ";")
