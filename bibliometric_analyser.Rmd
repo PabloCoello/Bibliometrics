@@ -24,7 +24,7 @@ Todo el proceso explicado (más o menos) aquí: http://htmlpreview.github.io/?ht
 
 # Read data
 
-```{r}
+```{r load data, message=FALSE, warning=FALSE, include=FALSE}
 setwd("~/GitHub/data/bibliometrics")
 bib <- readFiles("scopus.bib")
 M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
@@ -32,9 +32,7 @@ M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
 
 
 
-## Análisis descriptivo
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r perform sumary, message=FALSE, warning=FALSE, include=FALSE}
 results <- biblioAnalysis(M, sep = ";")
 options(width=100)
 S <- summary(object = results, k = 10, pause = FALSE)
@@ -43,48 +41,53 @@ knitr::kable(
   S[1]
 )
 ```
-```{r}
+# Descriptive statistics
+
+# Overall stats
+```{r overall table, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[2]
 )
 ```
+## Yearly production
 
-```{r}
+```{r Year production, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[3]
 )
 ```
 
 
-```{r}
+```{r Principal authors and articles, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[5]
 )
 ```
 
-```{r}
+```{r Main articles, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[6]
 )
 ```
-
-```{r}
+## Articles per country
+```{r production per country, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[7]
 )
 ```
-```{r}
+## Citations per country
+```{r Citations per country, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[8]
 )
 ```
-
-```{r}
+## Main topics
+```{r main topics, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[9]
 )
 ```
-```{r}
+```{r main keywords, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   S[10]
 )
@@ -94,15 +97,15 @@ knitr::kable(
 
 ## Temporal evolution:
 
-```{r echo=TRUE}
+```{r temporal plots, echo=FALSE, message=FALSE, warning=FALSE}
 plot(x = results, k = 10, pause = FALSE)
 ```
 
 
 
-Manuscritos más citados
+## Top citations
 
-```{r}
+```{r top citations, echo=FALSE, message=FALSE, warning=FALSE}
 CR <- citations(M, field = "article", sep = ";")
 
 knitr::kable(
@@ -110,18 +113,18 @@ knitr::kable(
 )
 ```
 
-Autores más citados
+## Top citated authors
 
-```{r}
+```{r top citated authors, echo=FALSE, message=FALSE, warning=FALSE}
 CR <- citations(M, field = "author", sep = ";")
 knitr::kable(
   cbind(CR$Cited[1:10])
 )
 ```
 
-Ráking de dominación de autores
+## Dominance ranking
 
-```{r}
+```{r dominance ranking, echo=FALSE, message=FALSE, warning=FALSE}
 DF <- dominance(results, k = 10)
 knitr::kable(
   DF
@@ -129,25 +132,25 @@ knitr::kable(
 ```
 
 
-Índices h
+## H index
 
-```{r}
+```{r h index, echo=FALSE, message=FALSE, warning=FALSE}
 indices <- Hindex(M, field = "author", elements="BORNMANN L", sep = ";", years = 10)
 
 # Bornmann's impact indices:
 indices$H
 ```
 
-Bornman citations
+## Bornman citations
 
-```{r}
+```{r bornman citations, echo=FALSE, message=FALSE, warning=FALSE}
 # Bornmann's citations
 indices$CitationList
 ```
 
-Índice h de los 10 autores más productivos
+### H index for the 10 most productive authors
 
-```{r}
+```{r h 10 most productive, echo=FALSE, message=FALSE, warning=FALSE}
 authors=gsub(","," ",names(results$Authors)[1:10])
 
 indices <- Hindex(M, field = "author", elements=authors, sep = ";", years = 50)
@@ -156,22 +159,22 @@ knitr::kable(
 )
 ```
 
-Top autors prodicvity over time
+## Top autors productivity over time
 
-```{r}
+```{r authors productivity over time, echo=FALSE, message=FALSE, warning=FALSE}
 topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
 ```
 
-Table: Author's productivity per year
-```{r}
+## Table: Author's productivity per year
+```{r productivity per year, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   head(topAU$dfAU)
 )
 ```
 
-Lotka`s coefficient
+## Lotka`s coefficient
 
-```{r}
+```{r Lotka`s coefficient, echo=FALSE, message=FALSE, warning=FALSE}
 L <- lotka(results)
 
 # Author Productivity. Empirical Distribution
@@ -183,12 +186,13 @@ knitr::kable(
 
 ## Network analysis
 
-```{r}
+```{r coupling network, echo=FALSE, message=FALSE, warning=FALSE}
 NetMatrix <- biblioNetwork(M, analysis = "coupling", network = "authors", sep = ";")
 net=networkPlot(NetMatrix, normalize = "salton", weighted=T, n = 20, labelsize=0.5,curved=TRUE,Title = "A Co-citation Network of Authors", type = "kamada", size=TRUE,remove.multiple=TRUE)
 ```
 
-```{r}
+### Network stats
+```{r network stats, echo=FALSE, message=FALSE, warning=FALSE}
 netstat <- networkStat(NetMatrix)
 knitr::kable(
   summary(netstat, k=10)
@@ -196,9 +200,9 @@ knitr::kable(
 ```
 
 
-Country scientific collaboration
+## Country scientific collaboration
 
-```{r}
+```{r countries network, echo=FALSE, message=FALSE, warning=FALSE}
 
 M <- metaTagExtraction(M, Field = "AU_CO", sep = ";")
 NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "countries", sep = ";")
@@ -208,9 +212,9 @@ net=networkPlot(NetMatrix, n = dim(NetMatrix)[1], Title = "Country Collaboration
 ```
 
 
-Co citation network
+## Co-citation network
 
-```{r}
+```{r Co-citation network, echo=FALSE, message=FALSE, warning=FALSE}
 
 NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
 
@@ -219,8 +223,8 @@ net=networkPlot(NetMatrix, n = 30, Title = "Co-Citation Network", type = "frucht
 ```
 
 
-Co ocurrences
-```{r}
+## Co-ocurrences network
+```{r co-ocurrences network, echo=FALSE, message=FALSE, warning=FALSE}
 # Create keyword co-occurrences network
 
 NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "keywords", sep = ";")
@@ -229,22 +233,23 @@ NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "keywords",
 net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = "Keyword Co-occurrences", type = "fruchterman", size=T,edgesize = 5,labelsize=0.7)
 ```
 
-# Conceptual structure using keywords
-```{r}
+## Conceptual structure using keywords
+```{r Conceptual structure, echo=FALSE, message=FALSE, warning=FALSE}
 # Conceptual Structure using keywords (method="CA")
 
 CS <- conceptualStructure(M,field="ID", method="CA", minDegree=4, clust=5, stemming=FALSE, labelsize=10, documents=10)
 ```
 
-# Historical citation network
+## Historical citation network
 
-```{r}
+```{r historical network, echo=FALSE, message=FALSE, warning=FALSE}
 # Create a historical citation network
 options(width=130)
 histResults <- histNetwork(M, min.citations = 10, sep = ";")
 ```
 
-```{r}
+
+```{r network result, echo=FALSE, message=FALSE, warning=FALSE}
 net <- histPlot(histResults, n=15, size = 10, labelsize=5)
 ```
 
