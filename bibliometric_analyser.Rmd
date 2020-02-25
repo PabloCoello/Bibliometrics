@@ -26,7 +26,7 @@ Todo el proceso explicado (más o menos) aquí: http://htmlpreview.github.io/?ht
 
 ```{r load data, message=FALSE, warning=FALSE, include=FALSE}
 setwd("~/GitHub/data/bibliometrics")
-bib <- readFiles("scopus.bib")
+bib <- readFiles("SENTIMENT.bib")
 M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
 ```
 
@@ -34,7 +34,6 @@ M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
 
 ```{r perform sumary, message=FALSE, warning=FALSE, include=FALSE}
 results <- biblioAnalysis(M, sep = ";")
-options(width=100)
 S <- summary(object = results, k = 10, pause = FALSE)
 
 knitr::kable(
@@ -237,19 +236,19 @@ net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = 
 ```{r Conceptual structure, echo=FALSE, message=FALSE, warning=FALSE}
 # Conceptual Structure using keywords (method="CA")
 
-CS <- conceptualStructure(M,field="ID", method="CA", minDegree=4, clust=5, stemming=FALSE, labelsize=10, documents=10)
+CS <- conceptualStructure(M,field="TI", method="CA", minDegree=4, clust=5, stemming=FALSE, labelsize=5, documents=5)
 ```
 
 ## Historical citation network
 
-```{r historical network, echo=FALSE, message=FALSE, warning=FALSE}
+```{r historical network, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Create a historical citation network
 options(width=130)
 histResults <- histNetwork(M, min.citations = 10, sep = ";")
 ```
 
 
-```{r network result, echo=FALSE, message=FALSE, warning=FALSE}
+```{r network result, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 net <- histPlot(histResults, n=15, size = 10, labelsize=5)
 ```
 
