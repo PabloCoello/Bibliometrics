@@ -120,6 +120,7 @@ knitr::kable(
 )
 ```
 
+
 ## Top citated authors
 
 Top citatedd authors by the references included in our analysis.
@@ -134,6 +135,7 @@ knitr::kable(
 
 ```{r dominance ranking, echo=FALSE, message=FALSE, warning=FALSE}
 DF <- dominance(results, k = params$k)
+
 knitr::kable(
   DF
 )
