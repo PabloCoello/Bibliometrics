@@ -3,8 +3,12 @@ title: "Bibliometric Analysis"
 author: "Pablo Coello Pulido"
 date: "22/2/2020"
 output: html_document
+params:
+  file: scopus.bib
+  path: ~/GitHub/data/bibliometrics
+  k: 10
 ---
-# Análisis bibliométrico de palabras clave seleccionadas
+# Bibliometric analysis of specific keywords
 
 ```{r Load librarys, echo=FALSE, comment='', message=FALSE, warning=FALSE}
 if(!require(readxl)){install.packages("readxl");library(readxl)}
@@ -23,8 +27,8 @@ Todo el proceso explicado (más o menos) aquí: http://htmlpreview.github.io/?ht
 
 
 ```{r load data, message=FALSE, warning=FALSE, include=FALSE}
-setwd("~/GitHub/data/bibliometrics")
-bib <- readFiles("scopus.bib")
+setwd(params$path)
+bib <- readFiles(params$file)
 M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
 ```
 
@@ -32,7 +36,7 @@ M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
 
 ```{r perform sumary, message=FALSE, warning=FALSE, include=FALSE}
 results <- biblioAnalysis(M, sep = ";")
-S <- summary(object = results, k = 12, pause = FALSE)
+S <- summary(object = results, k = params$k, pause = FALSE)
 
 knitr::kable(
   S[1]
@@ -99,7 +103,7 @@ knitr::kable(
 ## Descriptive plots
 
 ```{r temporal plots, echo=FALSE, message=FALSE, warning=FALSE}
-plot(x = results, k = 10, pause = FALSE)
+plot(x = results, k = params$k, pause = FALSE)
 ```
 
 
@@ -129,7 +133,7 @@ knitr::kable(
 ## Dominance ranking
 
 ```{r dominance ranking, echo=FALSE, message=FALSE, warning=FALSE}
-DF <- dominance(results, k = 10)
+DF <- dominance(results, k = params$k)
 knitr::kable(
   DF
 )
@@ -139,7 +143,7 @@ knitr::kable(
 ### H index for the 10 most productive authors
 
 ```{r h 10 most productive, echo=FALSE, message=FALSE, warning=FALSE}
-authors=gsub(","," ",names(results$Authors)[1:10])
+authors=gsub(","," ",names(results$Authors)[1:params$k])
 
 indices <- Hindex(M, field = "author", elements=authors, sep = ";", years = 50)
 knitr::kable(
@@ -150,7 +154,7 @@ knitr::kable(
 ## Top autors productivity over time
 
 ```{r authors productivity over time, echo=FALSE, message=FALSE, warning=FALSE}
-topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
+topAU <- authorProdOverTime(M, k = params$k, graph = TRUE)
 ```
 
 
@@ -177,7 +181,7 @@ net=networkPlot(NetMatrix, normalize = "salton", weighted=T, n = 20, labelsize=0
 
 ```{r network stats, echo=FALSE, message=FALSE, warning=FALSE, comment=""}
 netstat <- networkStat(NetMatrix)
-summary(netstat, k=10)
+summary(netstat, k=params$k)
 
 ```
 
