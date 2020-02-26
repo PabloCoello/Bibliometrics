@@ -21,6 +21,7 @@ if(!require(xml2)){install.packages("xml2", dependencies=TRUE, INSTALL_opts = c(
 if(!require(quanteda)){install.packages("quanteda");library(quanteda)}
 if(!require(ggplot2)){install.packages("ggplot2");library(ggplot2)}
 if(!require(lubridate)){install.packages("lubridate");library(lubridate)}
+if(!require(sf)){install.packages("sf");library(sf)} 
 ```
 
 Todo el proceso explicado (más o menos) aquí: http://htmlpreview.github.io/?https://github.com/massimoaria/bibliometrix/master/vignettes/bibliometrix-vignette.html
@@ -30,6 +31,11 @@ Todo el proceso explicado (más o menos) aquí: http://htmlpreview.github.io/?ht
 setwd(params$path)
 bib <- readFiles(params$file)
 M <- convert2df(bib, dbsource = "scopus", format = "bibtex")
+
+wd<-(paste(params$path, '/geo_data', sep=''))
+setwd(wd)
+shp <- read_sf(dsn = paste(wd,"", sep=""), 
+               layer = "geo_data")
 ```
 
 
@@ -106,6 +112,23 @@ knitr::kable(
 plot(x = results, k = params$k, pause = FALSE)
 ```
 
+```{r geo plot, echo=FALSE, message=FALSE, warning=FALSE}
+geo_plot <- S$MostProdCountries
+shp$NAME <- toupper(shp$NAME)
+shp[154,'NAME'] <- 'USA'
+
+
+shp$Articles <- 0
+for (country in gsub(' ','',shp$NAME)){
+  if (country %in% gsub(' ','',geo_plot$Country)){
+    shp[which(gsub(' ','',shp$NAME)==country),'Articles'] = geo_plot[which(gsub(' ','',geo_plot$Country)==country),"Articles"]
+  }
+}
+
+shp$Articles = as.numeric(shp$Articles)
+ggplot(shp %>% filter(Articles != "NA")) +
+  geom_sf(aes(fill = Articles)) 
+```
 
 
 ## Top citations
