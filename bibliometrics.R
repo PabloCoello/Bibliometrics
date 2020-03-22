@@ -16,7 +16,7 @@ if(!require(rscopus)){install.packages("rscopus");library(rscopus)} # https://gi
 # La idea es empezar cargando una primera revisión inicial hecha a mano con el código siguiente:
 
 setwd("~/GitHub/data/bibliometrics")
-
+setwd('C:/Users/epiph/OneDrive - Universidade de Santiago de Compostela(1)/Referencias')
 
 bib <- readFiles("scopus.csv")
 bib <- convert2df(bib, dbsource = "isi", format = "csv")

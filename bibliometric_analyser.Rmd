@@ -15,6 +15,7 @@ if(!require(readxl)){install.packages("readxl");library(readxl)}
 if(!require(dplyr)){install.packages("dplyr");library(dplyr)}
 if(!require(tidyr)){install.packages("tidyr");library(tidyr)}
 if(!require(stringr)){install.packages("stringr");library(stringr)}
+if(!require(digest)){install.packages("digest");library(digest)}
 if(!require(bibliometrix)){install.packages("bibliometrix");library(bibliometrix)}
 if(!require(xml2)){install.packages("xml2", dependencies=TRUE, INSTALL_opts = c('--no-lock'));library(xml2)}
 #https://github.com/massimoaria/bibliometrix
@@ -129,6 +130,13 @@ shp$Articles = as.numeric(shp$Articles)
 ggplot(shp %>% filter(Articles != "NA")) +
   geom_sf(aes(fill = Articles)) 
 ```
+
+
+```{r eval=FALSE, include=FALSE}
+devtools::install_github('thomasp85/gganimate')
+library(gganimate)
+```
+
 
 
 ## Top citations
@@ -247,8 +255,7 @@ net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = 
 # Conceptual structure using keywords
 ```{r Conceptual structure, echo=FALSE, message=FALSE, warning=FALSE}
 # Conceptual Structure using keywords (method="CA")
-
-CS <- conceptualStructure(M,field="TI", method="CA", minDegree=4, clust=5, stemming=FALSE, labelsize=5, documents=5)
+CS <- conceptualStructure(M,field="ID", method="CA", minDegree=4, clust=5, stemming=FALSE, labelsize=5, documents=5)
 ```
 
 ```{r historical network, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
